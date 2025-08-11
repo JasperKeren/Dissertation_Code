@@ -1,0 +1,23 @@
+Raw Input:
+    Flow Duration  Flow Bytes/s  Flow Packets/s  Fwd IAT Mean  Fwd IAT Max  Bwd IAT Mean  Packet Length Mean  PSH Flag Count  ACK Flag Count  Average Packet Size
+0     674.714984    278.358608      551.126017    112.985549   532.897952    310.188328             685.617      854.712776      536.144176           845.002206
+for ==>ftp-patator
+
+Raw Input:
+    Flow Duration  Flow Bytes/s  Flow Packets/s  Fwd IAT Mean  Fwd IAT Max  Bwd IAT Mean  Packet Length Mean  PSH Flag Count  ACK Flag Count  Average Packet Size
+0      923.85009     10.816734      379.255974    487.884068   119.360556     61.251112          518.857719       18.545883      738.595841           427.295687 
+
+for ==> botnet
+
+Raw Input:
+    Flow Duration  Flow Bytes/s  Flow Packets/s  Fwd IAT Mean  Fwd IAT Max  Bwd IAT Mean  Packet Length Mean  PSH Flag Count  ACK Flag Count  Average Packet Size
+0     516.149188     28.927826        2.953854    913.232249    11.227547    933.271643          995.625149        55.34866      564.632425           283.577038 
+
+for ==>web-attack-brute-force
+
+Raw Input:
+    Flow Duration  Flow Bytes/s  Flow Packets/s  Fwd IAT Mean  Fwd IAT Max  Bwd IAT Mean  Packet Length Mean  PSH Flag Count  ACK Flag Count  Average Packet Size
+0     376.204778     613.80952      819.356217    701.221138   989.164847    420.504545          802.055195       47.525504      368.951339           716.054628
+
+for ==>DoS Hulk
+

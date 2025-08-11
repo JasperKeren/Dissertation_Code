@@ -1,0 +1,10 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	dns
+#open	2025-08-03-21-19-51
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	trans_id	rtt	query	qclass	qclass_name	qtype	qtype_name	rcode	rcode_name	AA	TC	RD	RA	Z	answers	TTLs	rejected
+#types	time	string	addr	port	addr	port	enum	count	interval	string	count	string	count	string	count	string	bool	bool	bool	bool	count	vector[string]	vector[interval]	bool
+1084443429.864896	CX0uK139Gp7q2pHrGb	145.254.160.237	3009	145.253.2.203	53	udp	35	0.360518	pagead2.googlesyndication.com	1	C_INTERNET	1	A	0	NOERROR	F	F	T	T	0	pagead2.google.com,pagead.google.akadns.net,216.239.59.104,216.239.59.99	48321.000000,122.000000,123.000000,123.000000	F
+#close	2025-08-03-21-19-51

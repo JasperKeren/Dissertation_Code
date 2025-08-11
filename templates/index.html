@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LSTM Prediction Interface</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h2 { color: #2c3e50; }
+    input[type="number"], input[type="float"] {
+      width: 250px; padding: 5px; margin-bottom: 10px;
+    }
+    button { padding: 10px 20px; font-size: 15px; margin-right: 10px; }
+    .result { margin-top: 20px; padding: 10px; background-color: #ecf0f1; border: 1px solid #bdc3c7; }
+  </style>
+</head>
+<body>
+
+<h2>Network Flow Prediction (LSTM)</h2>
+<form id="predict-form">
+  <div>
+    <label>Flow Duration:</label><br>
+    <input type="number" name="Flow Duration" required><br>
+
+    <label>Flow Bytes/s:</label><br>
+    <input type="float" name="Flow Bytes/s" required><br>
+
+    <label>Flow Packets/s:</label><br>
+    <input type="float" name="Flow Packets/s" required><br>
+
+    <label>Fwd IAT Mean:</label><br>
+    <input type="float" name="Fwd IAT Mean" required><br>
+
+    <label>Fwd IAT Max:</label><br>
+    <input type="float" name="Fwd IAT Max" required><br>
+
+    <label>Bwd IAT Mean:</label><br>
+    <input type="float" name="Bwd IAT Mean" required><br>
+
+    <label>Packet Length Mean:</label><br>
+    <input type="float" name="Packet Length Mean" required><br>
+
+    <label>PSH Flag Count:</label><br>
+    <input type="float" name="PSH Flag Count" required><br>
+
+    <label>ACK Flag Count:</label><br>
+    <input type="float" name="ACK Flag Count" required><br>
+
+    <label>Average Packet Size:</label><br>
+    <input type="float" name="Average Packet Size" required><br>
+  </div>
+  <br>
+  <button type="submit">Predict</button>
+  <button type="button" id="fetch-zeek">Fetch from Zeek</button>
+</form>
+
+<div class="result" id="result" style="display:none;"></div>
+
+<script>
+  const form = document.getElementById('predict-form');
+  const resultDiv = document.getElementById('result');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const payload = {};
+    for (let [key, value] of formData.entries()) {
+      payload[key] = parseFloat(value);
+    }
+
+    const response = await fetch('/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = result.error
+      ? `<strong>Error:</strong> ${result.error}`
+      : `<strong>Prediction:</strong> ${result.label} (class ${result.prediction})`;
+  });
+
+  document.getElementById('fetch-zeek').addEventListener('click', async () => {
+    const response = await fetch('/fetch-latest-zeek');
+    const data = await response.json();
+
+    if (data.error) {
+      alert("Error fetching Zeek data: " + data.error);
+      return;
+    }
+
+    for (let key in data) {
+      const input = document.querySelector(`[name="${key}"]`);
+      if (input) input.value = data[key];
+    }
+
+    form.dispatchEvent(new Event('submit'));
+  });
+</script>
+
+</body>
+</html>
